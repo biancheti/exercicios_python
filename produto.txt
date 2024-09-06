@@ -1,0 +1,8 @@
+Código: 001 
+Descrição: Mobi 
+Preço: R$31.000 
+Qtd: 1 
+Código: 002 
+Descrição: Renegade 
+Preço: R$90.000 
+Qtd: 1 
