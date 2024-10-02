@@ -11,9 +11,10 @@ def menu():
     print("   |1| * |Mostrar Treino do Dia|    ")
     print("   |2| * |Fazer Check-in|           ")
     print("   |3| * |Ver Check-ins do Dia|     ")
-    print("   |4| * |Adicionar Personal Record|")
-    print("   |5| * |Seus Personal Records|    ")
-    print("   |6| * |Sair do App|              ")
+    print("   |4| * |Cancelar Check-In|        ")
+    print("   |5| * |Adicionar Personal Record|")
+    print("   |6| * |Seus Personal Records|    ")
+    print("   |7| * |Sair do App|              ")
     print("____________________________________")
 
     opcao = str(input("\nEscolha Uma das Opções acima: "))
@@ -25,13 +26,15 @@ def menu():
     elif opcao == '3':
         ver_checkins()
     elif opcao == '4':
-        adicionar_records()
+        cancelar_checkin()
     elif opcao == '5':
-        mostrar_records()
+        adicionar_records()
     elif opcao == '6':
+        mostrar_records()
+    elif opcao == '7':
         sair_app()
     else:
-        print("\nAtenção! Digite Somente Números de 1 à 6. Tente Novamente.\n")
+        print("\nAtenção! Digite Somente Números de 1 à 7. Tente Novamente.\n")
         return menu()
         
 def mostrar_treino():
@@ -47,6 +50,8 @@ def fazer_checkin():
     nome = str(input("\nDigite seu Nome: "))
 
     try:
+        id = int(input("Digite seu ID: "))
+
         print("\n▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒")
         print(" |Horários Disponíveis|:")
         print(" |1| - |07:30|          ")
@@ -62,17 +67,17 @@ def fazer_checkin():
         if posicao_horario >= 1 and posicao_horario <= 6:
             print("\nCheck-in Realizado com Sucesso!\n")
             horario =  retornar_horario(posicao_horario)
-            registro = (nome, posicao_horario,horario)
+            registro = (id, nome, posicao_horario,horario)
             alunos.append(registro)
             return menu()
         else:
-            print("\nAtenção! Essa Opção é Inválida.")
+            print("\nAtenção! Essa Opção é Inválida. Tente Novamente.")
             return fazer_checkin()
-    
+        
     except ValueError:
-        print("\nOops! Digite Somente Números de 1 à 6. Tente Novamente.")
+        print("\nOops! Use Somente Números. Tente Novamente.")
         return fazer_checkin()
-       
+          
 def retornar_horario(posicao):
     opcoes = {
         1: "07:30",
@@ -86,17 +91,39 @@ def retornar_horario(posicao):
 
 def ver_checkins():
     if alunos == []:
-        print("\nVocê Não Fez Check-in em Nenhum Horário.\n")
+        print("\nNenhum Aluno Fez Check-in Até o Momento.\n")
         return menu()
     
     print("\n▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒")
     print("\n|Lista de Check-In|\n")
     
     for registro in alunos:
-        print("|Nome|: ", registro[0], "   |Horário|: ", registro[2])
-        print("_________________________")
+        print("|ID|: ", registro[0], "|Nome|: ", registro[1], "   |Horário|: ", registro[3])
+        print("_________________________\n")
 
     return menu()
+
+def cancelar_checkin():
+    if alunos == []:
+        print("\nVocê Não Fez Check-In até o Momento.\n")
+        return menu()
+    
+    try:
+        id = int(input("\nDigite seu ID para Cancelarmos seu Check_In: "))
+
+        for aluno in alunos:
+            if aluno[0] == id:
+                alunos.remove(aluno)
+                print("\nCheck-In do Aluno com ID", id, "Foi Cancelado.\n")
+                return menu()
+            
+        else:
+            print(f"Oops! ID {id} Não Encontrado. Tente novamente. ")
+            return cancelar_checkin()
+    
+    except ValueError:
+        print("\nOops! Use Somente Números. Tente Novamente.")
+        return cancelar_checkin()
 
 def adicionar_records():
     try:
@@ -124,11 +151,11 @@ def adicionar_records():
                 print("\nPersonal Record Adicionado com Sucesso!\n")
                 return menu()
         else:
-                print("\nAtenção! Digite Somente Números de 1 à 9. Tente Novamente.")
+                print("\nAtenção! Digite um Número Válido. Tente Novamente.")
                 return adicionar_records()
     
     except ValueError:
-        print("\nOops! Use Somente Números de 1 à 9. Tente Novamente.")
+        print("\nOops! Use Somente Números. Tente Novamente.")
         return adicionar_records()
 
 def retornar_movimento(posicao):
@@ -147,7 +174,7 @@ def retornar_movimento(posicao):
 
 def mostrar_records():
     if records_pessoais == []:
-        print("\nNenum Personal Record Adicionado até o Momento.\n")
+        print("\nNenhum Personal Record Adicionado até o Momento.\n")
         return menu()
     
     print("\n▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒")
