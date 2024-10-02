@@ -105,7 +105,8 @@ def ver_checkins():
 
 def cancelar_checkin():
     if alunos == []:
-        print("\nVocê Não Fez Check-In até o Momento.\n")
+        print("\n▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒")
+        print("Você Não Fez Check-In até o Momento.\n")
         return menu()
     
     try:
@@ -141,7 +142,10 @@ def adicionar_records():
         print(" |9| - |Over Head Squat|")
         print("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒\n")
 
-        posicao_movimento = int(input("Digite o Número Correspondente ao Exercício que Você Deseja: "))
+
+        print("\n▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒")
+        print("Vamos Registrar seu Personal Record: ")
+        posicao_movimento = int(input("Digite o Número Correspondente ao Exercício que Você Deseja Adicionar o PR: "))
 
         if posicao_movimento >= 1 and posicao_movimento <= 9:
                 peso = int(input("\nDigite o Peso da Carga Máxima em Kg (Somente Números): "))
