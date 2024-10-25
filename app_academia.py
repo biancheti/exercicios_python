@@ -1,4 +1,3 @@
-
 alunos = []
 records_pessoais = []
 
